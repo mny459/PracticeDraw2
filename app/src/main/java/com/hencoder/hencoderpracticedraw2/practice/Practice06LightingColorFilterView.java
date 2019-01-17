@@ -4,7 +4,11 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -34,13 +38,16 @@ public class Practice06LightingColorFilterView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
-        // 使用 Paint.setColorFilter() 来设置 LightingColorFilter
-
+        // 使用 Paint.setColorFilter() 来设置 LightingColorFilter：用于模拟光照效果
         // 第一个 LightingColorFilter：去掉红色部分
+        LightingColorFilter redFilter = new LightingColorFilter(0x00ffff, 0x000000);
+        paint.setColorFilter(redFilter);
         canvas.drawBitmap(bitmap, 0, 0, paint);
 
         // 第二个 LightingColorFilter：增强绿色部分
+        LightingColorFilter greenAddFilter = new LightingColorFilter(0xffffff, 0x00aa00);
+        PorterDuffColorFilter porterDuffColorFilter = new PorterDuffColorFilter(Color.GREEN, PorterDuff.Mode.DST_IN);
+        paint.setColorFilter(greenAddFilter);
         canvas.drawBitmap(bitmap, bitmap.getWidth() + 100, 0, paint);
     }
 }
